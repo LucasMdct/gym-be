@@ -1,75 +1,64 @@
-#!/usr/bin/env node
 
-/**
- * Module dependencies.
- */
 
-var app = require('../app');
-var debug = require('debug')('gym-be:server');
-var http = require('http');
+const path = require('path');
+const dotenv = require('dotenv').config;
 
-/**
- * Get port from environment and store in Express.
- */
+const isProd = process.env.NODE_ENV === 'production';
 
-var port = normalizePort(process.env.PORT || '3000');
-app.set('port', port);
 
-/**
- * Create HTTP server.
- */
 
-var server = http.createServer(app);
+if (!isProd) {
+  dotenv({
+    path: path.resolve(__dirname, '../dev.env'),
+  });
+}
 
-/**
- * Listen on provided port, on all network interfaces.
- */
+const debug = require('debug')('gym-be:server');
+const http = require('http');
 
-server.listen(port);
-server.on('error', onError);
-server.on('listening', onListening);
+const app = require('../app');
+const sequelize = require('../persistence/db');
 
-/**
- * Normalize a port into a number, string, or false.
- */
+function normalize_Port(val) {
+  const p_number = parseInt(val, 10);
 
-function normalizePort(val) {
-  var port = parseInt(val, 10);
+  if (Number.isNaN(p_number)) {
 
-  if (isNaN(port)) {
-    // named pipe
     return val;
   }
 
-  if (port >= 0) {
-    // port number
-    return port;
+  if (p_number >= 0) {
+
+    return p_number;
   }
 
   return false;
 }
 
-/**
- * Event listener for HTTP server "error" event.
- */
+
+const port = normalize_Port(process.env.PORT || '3000');
+app.set('port', port);
+
+
+const server = http.createServer(app);
+
 
 function onError(error) {
   if (error.syscall !== 'listen') {
     throw error;
   }
 
-  var bind = typeof port === 'string'
-    ? 'Pipe ' + port
-    : 'Port ' + port;
+  const bind = typeof port === 'string'
+    ? `Pipe ${port}`
+    : `Port ${port}`;
 
-  // handle specific listen errors with friendly messages
   switch (error.code) {
     case 'EACCES':
-      console.error(bind + ' requires elevated privileges');
+      console.error(`${bind} requires elevated privileges`);
       process.exit(1);
       break;
     case 'EADDRINUSE':
-      console.error(bind + ' is already in use');
+      console.error(`${bind} is already in use`);
       process.exit(1);
       break;
     default:
@@ -77,14 +66,33 @@ function onError(error) {
   }
 }
 
-/**
- * Event listener for HTTP server "listening" event.
- */
 
 function onListening() {
-  var addr = server.address();
-  var bind = typeof addr === 'string'
-    ? 'pipe ' + addr
-    : 'port ' + addr.port;
-  debug('Listening on ' + bind);
+  const addr = server.address();
+  const bind = typeof addr === 'string'
+    ? `pipe ${addr}`
+    : `port ${addr.port}`;
+  debug(`Listening on ${bind}`);
+
+  sequelize.authenticate()
+    .then(() => {
+      console.warn('Conectado com sucesso ao banco e dados!');
+      // Após conectar na base de dados, chama o "sync" para criar as tabelas
+      // caso ainda não existam.
+      // Em um projeto real, este tipo de coisa deve ser feito via migração de banco de dados
+      // e não automaticamente pelo Sequelize.
+      // Docs: https://sequelize.org/docs/v6/core-concepts/model-basics/#model-synchronization
+      return sequelize.sync({ alter: true });
+    })
+    .catch((error) => {
+      console.warn('Erro ao conectar ao banco e dados:', error);
+    });
 }
+
+
+server.listen(port);
+server.on('error', onError);
+server.on('listening', onListening);
+
+
+
