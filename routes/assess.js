@@ -4,44 +4,133 @@ const express = require('express');
 const { middlewareAuthentication } = require('../middlewares/authenticates');
 const Assessments = require('../templates/Assessments');
 const { check_Validation_Result } = require('../holdout');
-const { validateEvaluationRegistration, AssessmentsUpdateValidator } = require('../holdout/assessments');
-
+const { validationImc } = require('../holdout/assessments');
+const Students = require('../templates/Students');
 
 const router = express.Router();
 
+router.patch('/:studentId', middlewareAuthentication, async (req, res) => {
+  if (check_Validation_Result(req, res)) {
+    return;
+  }
 
-router.post(
-  '/',
-  middlewareAuthentication,
-  validateEvaluationRegistration,
-  async (req, res) => {
-    if (check_Validation_Result(req, res)) {
+  try {
+    const { userLogged, params } = req;
+    const { studentId, assessmentId} = params;
+
+    // Busque o estudante pelo ID
+    const student = await Students.findOne({
+      where: {
+        id: studentId,
+        id_teachers: userLogged.id,
+      },
+    });
+
+    if (!student) {
+      res.status(404).send('Estudante não encontrado');
       return;
     }
-
-    try {
-      const { userLogged, body } = req;
-
-      const { name, gender, age, height, weight } = body;
-
-      const result = await Assessments.create({
-        name,
-        gender,
-        age,
-        height,
-        weight,
-        usuario_id: userLogged.id,
+    
+    const height = (student.height * 2 );
+    const imc = student.weight / height;
+   
+      // Verifique se já existe uma avaliação para esse estudante e professor
+      const assessment_value = await Assessments.findOne({
+        where: {
+          id_students: studentId,
+          id_teachers: userLogged.id,
+        },
       });
+  
+      if (!assessment_value) {
+        // Se não houver avaliação, crie uma nova
+        await Assessments.create({
+          id_students: studentId,
+          id_teachers: userLogged.id,
+          imc,
+        });
+      } else {
+        // Se já houver uma avaliação, atualize o IMC
+        await assessment_value.update({
+          imc,
+        });
+      }
+      const responseData = {
+        imc,
+      };
 
-      const assessment = await Assessments.findByPk(result.get('id'));
+    res.status(200).json(responseData);
 
-      res.status(201).json(assessment);
-    } catch (error) {
-      console.warn(error);
-      res.status(500).send();
-    }
-  },
-);
+    console.log('Atualização do IMC realizado com sucesso!');
+  } catch (error) {
+    console.warn(error);
+    res.status(500).send();
+  }
+});
+
+
+/*ROTA DE CADASTRO PARA AVALIAÇÕES*/
+
+// router.patch('/:studentId', middlewareAuthentication, async (req, res) => {
+//   if (check_Validation_Result(req, res)) {
+//     return;
+//   }
+
+//   try {
+//     const { userLogged, params, body } = req;
+//     const { studentId} = params;
+//     const { height, weight } = body;
+    
+  
+//     const imc = (weight / (height * height)).toFixed(2);
+
+//     const assessment_value = await Assessments.create({
+//       id_students: studentId,
+//       id_teachers: userLogged.id, // Use o ID do professor logado
+//       imc,
+//     });
+
+//     if (!assessment_value) {
+//       res.status(404).send('Erro, Não foi encontrado');
+//       return;
+//     }
+
+//     await assessment_value.reload();
+//     res.status(200).json(assessment_value);
+  // const assessment_value = await Assessments.create({
+  //   where: {
+  //     id_students: studentId,
+  //     id_teachers: userLogged.id, // Use o ID do professor logado
+  //   },
+  // });
+
+  // if (!assessment_value) {
+  //   res.status(404).send('Erro, Não foi encontrado');
+  //   return;
+  // }
+
+  // await assessment_value.update(
+  //   {
+  //       id_students: studentId,
+  //       id_teachers: userLogged.id, // Use o ID do professor logado
+  //       imc,
+  //   },
+  //   {
+  //     where: {
+  //       id_students: studentId,
+  //       id_teachers: userLogged.id,
+  //     },
+  //   },
+  // );
+  // await assessment_value.reload();
+  // res.status(200).json(assessment_value);
+//   console.log('Atualização do IMC realizado com sucesso!');
+//   } catch (error) {
+//     console.warn(error);
+//     res.status(500).send();
+//   }
+// },
+// );
 
 // /**
 //  * Consulta de tarefas do usuário logado

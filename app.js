@@ -6,8 +6,8 @@ const cors = require('cors');
 
 const homeRouter = require('./routes/home');
 const teachersRouter = require('./routes/teachers');
-const assessmentRouter = require('./routes/assessments')
-// const tarefasRouter = require('./routes/tarefas');
+const assessmentRouter = require('./routes/assess')
+const studentsRouter = require('./routes/students');
 
 const app = express();
 
@@ -28,7 +28,8 @@ app.use(cookieParser());
 
 app.use('/', homeRouter);
  app.use('/teachers', teachersRouter);
- app.use('/assessment', assessmentRouter);
+ app.use('/students', studentsRouter);
+ app.use('/assessments', assessmentRouter);
 
 // catch 404 and forward to error handler
 app.use((req, res, next) => {

@@ -1,15 +1,19 @@
 
 const { DataTypes } = require('sequelize');
 const sequelize = require('../persistence/db');
+const Teachers = require('./teachers')
 
-
-const Students = new sequelize.define(
+const Students = sequelize.define(
     'students',
     {
         id: {
             type: DataTypes.BIGINT,
             autoIncrement: true,
             primaryKey: true,
+        },
+        id_teachers: {
+            type: DataTypes.BIGINT,
+            allowNull: false,
         },
         name: {
             type: DataTypes.STRING(200),
@@ -31,7 +35,6 @@ const Students = new sequelize.define(
             type: DataTypes.DECIMAL(5, 2),
             allowNull: false,
         },
-        
     },
     {
         // Docs: https://sequelize.org/docs/v6/core-concepts/model-basics
@@ -44,8 +47,18 @@ const Students = new sequelize.define(
             fields: ['name'],
           },
         ],
+        
       },
     );
+
+    Students.belongsTo(Teachers, {
+        as: 'teachers',
+        targetKey: 'id',
+        foreignKey: 'id_teachers',
+        onDelete: 'NO ACTION',
+        onUpdate: 'NO ACTION',
+      });
+      
 
     
 module.exports = Students;

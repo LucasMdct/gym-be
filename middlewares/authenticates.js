@@ -1,4 +1,6 @@
-const Teachers = require('../templates/teachers');
+const Teachers = require('../templates/teachers'); 
+const Students = require('../templates/Students');
+
 const { holdoutTokenUsers } = require('../usefulness/tk');
 
  
@@ -21,8 +23,9 @@ const middlewareAuthentication = async (request, response, next) => {
     const payload = holdoutTokenUsers(token);
 
     const teachersId = payload.id;
-
+    
     const teachers = await Teachers.findByPk(teachersId);
+
 
     if (!teachers) {
       response.status(401).send('Usuário não encontrado.');
@@ -30,7 +33,6 @@ const middlewareAuthentication = async (request, response, next) => {
     }
 
     request.userLogged = teachers.toJSON();
-
     next();
   } catch (error) {
     console.warn(error);

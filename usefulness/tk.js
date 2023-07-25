@@ -2,8 +2,8 @@ const jwt = require('jsonwebtoken');
 
 const { JWT_TOKEN } = process.env;
 
-const gTokenUser = (users) => jwt.sign(users, JWT_TOKEN, {
-  expiresIn: '3d',
+const gTokenUser = (teachers) => jwt.sign(teachers, JWT_TOKEN, {
+  expiresIn: '7d',
 });
 
 

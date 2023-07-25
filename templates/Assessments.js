@@ -1,5 +1,5 @@
 const { DataTypes } = require('sequelize');
-const sequelize = require('../database/sequelize');
+const sequelize = require('../persistence/db');
 const Teachers = require('./teachers');
 const Students = require('./Students');
 
@@ -27,14 +27,6 @@ const Assessments = sequelize.define(
   },
 );
 
-Assessments.belongsTo(Teachers, {
-  as: 'teachers',
-  targetKey: 'id',
-  foreignKey: 'id_teachers',
-  onDelete: 'NO ACTION',
-  onUpdate: 'NO ACTION',
-});
-
 Assessments.belongsTo(Students, {
   as: 'students',
   targetKey: 'id',
@@ -42,5 +34,6 @@ Assessments.belongsTo(Students, {
   onDelete: 'NO ACTION',
   onUpdate: 'NO ACTION',
 });
+
 
 module.exports = Assessments;
