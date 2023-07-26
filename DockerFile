@@ -1,6 +1,6 @@
 FROM node:18-alpine
 
-WORKDIR /home/node/gym-be
+WORKDIR /home/ubuntu/gym-be
 
 EXPOSE 3000
 
