@@ -1,6 +1,6 @@
 FROM node:18-alpine
 
-WORKDIR /home/node/app
+WORKDIR /home/node/gym-be
 
 EXPOSE 3000
 
@@ -14,4 +14,4 @@ RUN npm install \
 
 COPY . .
 
-CMD [ "npm", "run", "start" ]
+CMD [ "npm", "run", "dev" ]
