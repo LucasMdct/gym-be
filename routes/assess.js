@@ -9,6 +9,25 @@ const Students = require('../templates/Students');
 
 const router = express.Router();
 
+
+function rankImc(imc) {
+  if (imc < 17) {
+    return 'Muito abaixo do peso';
+  } else if (imc <= 18.49) {
+    return 'Abaixo do peso';
+  }else if (imc >= 18.5 && imc < 24.9) {
+    return 'Peso normal';
+  } else if (imc >= 25 && imc < 29.9) {
+    return 'Acima do Peso';
+  }else if (imc >= 30 && imc < 34.9) {
+    return 'Obesidade I';
+  } else if (imc >= 35 && imc < 39.9) {
+    return 'Obesidade II (severa)';
+  }else {
+    return 'Obesidade III (mórbida)';
+  }
+}
+
 router.patch('/:studentId', middlewareAuthentication, async (req, res) => {
   if (check_Validation_Result(req, res)) {
     return;
@@ -16,7 +35,8 @@ router.patch('/:studentId', middlewareAuthentication, async (req, res) => {
 
   try {
     const { userLogged, params } = req;
-    const { studentId, assessmentId} = params;
+    const { studentId } = params;
+
 
     // Busque o estudante pelo ID
     const student = await Students.findOne({
@@ -30,34 +50,37 @@ router.patch('/:studentId', middlewareAuthentication, async (req, res) => {
       res.status(404).send('Estudante não encontrado');
       return;
     }
-    
-    const height = (student.height * 2 );
+
+    const height = (student.height * 2);
     const imc = student.weight / height;
-   
-      // Verifique se já existe uma avaliação para esse estudante e professor
-      const assessment_value = await Assessments.findOne({
-        where: {
-          id_students: studentId,
-          id_teachers: userLogged.id,
-        },
-      });
-  
-      if (!assessment_value) {
-        // Se não houver avaliação, crie uma nova
-        await Assessments.create({
-          id_students: studentId,
-          id_teachers: userLogged.id,
-          imc,
-        });
-      } else {
-        // Se já houver uma avaliação, atualize o IMC
-        await assessment_value.update({
-          imc,
-        });
-      }
-      const responseData = {
+
+    // Verifique se já existe uma avaliação para esse estudante e professor
+    const assessment_value = await Assessments.findOne({
+      where: {
+        id_students: studentId,
+        id_teachers: userLogged.id,
+      },
+    });
+
+    if (!assessment_value) {
+      // Se não houver avaliação, crie uma nova
+      await Assessments.create({
+        id_students: studentId,
+        id_teachers: userLogged.id,
         imc,
-      };
+      });
+    } else {
+      // Se já houver uma avaliação, atualize o IMC
+      await assessment_value.update({
+        imc,
+      });
+    }
+
+    const responseData = {
+      imc,
+      classification: rankImc(imc),
+    };
+
 
     res.status(200).json(responseData);
 
@@ -80,8 +103,8 @@ router.patch('/:studentId', middlewareAuthentication, async (req, res) => {
 //     const { userLogged, params, body } = req;
 //     const { studentId} = params;
 //     const { height, weight } = body;
-    
-  
+
+
 //     const imc = (weight / (height * height)).toFixed(2);
 
 //     const assessment_value = await Assessments.create({
@@ -97,33 +120,33 @@ router.patch('/:studentId', middlewareAuthentication, async (req, res) => {
 
 //     await assessment_value.reload();
 //     res.status(200).json(assessment_value);
-  // const assessment_value = await Assessments.create({
-  //   where: {
-  //     id_students: studentId,
-  //     id_teachers: userLogged.id, // Use o ID do professor logado
-  //   },
-  // });
+// const assessment_value = await Assessments.create({
+//   where: {
+//     id_students: studentId,
+//     id_teachers: userLogged.id, // Use o ID do professor logado
+//   },
+// });
 
-  // if (!assessment_value) {
-  //   res.status(404).send('Erro, Não foi encontrado');
-  //   return;
-  // }
+// if (!assessment_value) {
+//   res.status(404).send('Erro, Não foi encontrado');
+//   return;
+// }
 
-  // await assessment_value.update(
-  //   {
-  //       id_students: studentId,
-  //       id_teachers: userLogged.id, // Use o ID do professor logado
-  //       imc,
-  //   },
-  //   {
-  //     where: {
-  //       id_students: studentId,
-  //       id_teachers: userLogged.id,
-  //     },
-  //   },
-  // );
-  // await assessment_value.reload();
-  // res.status(200).json(assessment_value);
+// await assessment_value.update(
+//   {
+//       id_students: studentId,
+//       id_teachers: userLogged.id, // Use o ID do professor logado
+//       imc,
+//   },
+//   {
+//     where: {
+//       id_students: studentId,
+//       id_teachers: userLogged.id,
+//     },
+//   },
+// );
+// await assessment_value.reload();
+// res.status(200).json(assessment_value);
 //   console.log('Atualização do IMC realizado com sucesso!');
 //   } catch (error) {
 //     console.warn(error);
