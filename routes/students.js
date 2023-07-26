@@ -40,9 +40,6 @@ router.post('/', middlewareAuthentication, validateStudentRegistration, async (r
 );
 
 
-// /**
-//  * Atualiza os dados da tarefa do usuário de forma parcial
-//  */
 router.patch('/:studentId',middlewareAuthentication,studentsUpdateValidator,
     async (req, res) => {
         if (check_Validation_Result(req, res)) {
@@ -93,10 +90,7 @@ router.patch('/:studentId',middlewareAuthentication,studentsUpdateValidator,
     },
 );
 
-/**
- * Rota de exclusão de tarefas
- * DELETE /tarefas/1
- */
+
 router.delete(
   '/:studentId',
   middlewareAuthentication,

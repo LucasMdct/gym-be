@@ -37,7 +37,7 @@ const v_Login = checkSchema(
     ['body'],
 );
 
-const v_Cadastro = checkSchema(
+const v_Registration = checkSchema(
     {
         name: {
             isLength: {
@@ -84,5 +84,5 @@ const v_Cadastro = checkSchema(
 
 module.exports = {
     v_Login,
-    v_Cadastro,
+    v_Registration,
 };

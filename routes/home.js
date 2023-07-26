@@ -5,7 +5,7 @@ const sequelize = require('../persistence/db');
 const router = express.Router();
 
 router.get('/', (req, res) => {
-  res.send('As rotas disponíveis são "/teachers" e "....".');
+  res.send('As rotas disponíveis são "/teachers", "/students", "/assessments"');
 });
 
 router.get('/healthcheck', async (req, res) => {

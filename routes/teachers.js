@@ -6,7 +6,7 @@ const Teachers = require('../templates/teachers');
 const { cPassword } = require('../usefulness/password');
 const { gTokenUser } = require('../usefulness/tk');
 const { check_Validation_Result } = require('../holdout');
-const { v_Login, v_Cadastro } = require('../holdout/teachers');
+const { v_Login, v_Registration } = require('../holdout/teachers');
 
 const router = express.Router();
 
@@ -23,10 +23,7 @@ function duplicate_email (error) {
 /**
  * Cadastro de usuários
  */
-router.post(
-  '/',
-  v_Cadastro,
-  async (req, res) => {
+router.post('/',v_Registration,async (req, res) => {
     if (check_Validation_Result(req, res)) {
       return;
     }
@@ -34,16 +31,16 @@ router.post(
     try {
       const { name, email, password } = req.body;
 
-      const result = await Teachers.create({
+      const teachers = await Teachers.create({
         name,
         email,
         password,
       });
 
-      const user = await Teachers.findByPk(result.get('id'));
+      const teacher = await Teachers.findByPk(teachers.get('id'));
       
-      delete 
-      res.status(201).json(user);
+      delete res.status(201).json(teacher);
+
     } catch (error) {
       console.warn(error);
       if (duplicate_email(error)) {
@@ -55,9 +52,7 @@ router.post(
   },
 );
 
-/**
- * Login de usuários
- */
+
 router.post(
   '/login',
   v_Login,
