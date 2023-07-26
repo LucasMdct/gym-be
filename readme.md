@@ -40,7 +40,7 @@ O sistema será desenvolvido utilizando as seguintes tecnologias:
 - Node.js (backend)
 - Express.js (framework web para Node.js)
 - Sequelize (ORM para interação com o banco de dados)
-- PostgreSQL (banco de dados)
+- MYSQL (banco de dados)
 - React.js (frontend)
 
 ## Instruções para Executar o Projeto
