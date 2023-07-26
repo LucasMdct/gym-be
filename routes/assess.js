@@ -15,20 +15,20 @@ function rankImc(imc) {
     return 'Muito abaixo do peso';
   } else if (imc <= 18.49) {
     return 'Abaixo do peso';
-  }else if (imc >= 18.5 && imc < 24.9) {
+  } else if (imc >= 18.5 && imc < 24.9) {
     return 'Peso normal';
   } else if (imc >= 25 && imc < 29.9) {
     return 'Acima do Peso';
-  }else if (imc >= 30 && imc < 34.9) {
+  } else if (imc >= 30 && imc < 34.9) {
     return 'Obesidade I';
   } else if (imc >= 35 && imc < 39.9) {
     return 'Obesidade II (severa)';
-  }else {
+  } else {
     return 'Obesidade III (mórbida)';
   }
 }
 
-router.patch('/:studentId', middlewareAuthentication, async (req, res) => {
+router.post('/:studentId', middlewareAuthentication, async (req, res) => {
   if (check_Validation_Result(req, res)) {
     return;
   }
@@ -54,27 +54,13 @@ router.patch('/:studentId', middlewareAuthentication, async (req, res) => {
     const height = (student.height * 2);
     const imc = student.weight / height;
 
-    // Verifique se já existe uma avaliação para esse estudante e professor
-    const assessment_value = await Assessments.findOne({
-      where: {
-        id_students: studentId,
-        id_teachers: userLogged.id,
-      },
+    const assessment_value = await Assessments.create({
+      id_students: studentId,
+      id_teachers: userLogged.id,
+      imc,
     });
 
-    if (!assessment_value) {
-      // Se não houver avaliação, crie uma nova
-      await Assessments.create({
-        id_students: studentId,
-        id_teachers: userLogged.id,
-        imc,
-      });
-    } else {
-      // Se já houver uma avaliação, atualize o IMC
-      await assessment_value.update({
-        imc,
-      });
-    }
+
 
     const responseData = {
       imc,
