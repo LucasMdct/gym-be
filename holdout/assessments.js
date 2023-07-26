@@ -28,6 +28,9 @@ const validationImc = checkSchema({
       },
       errorMessage: 'O IMC deve ser um valor decimal entre 0.00 e 100.00',
     },
+    notEmpty: {
+      errorMessage: 'O e-mail é um Campo Obrigatório',
+    },
   },
 });
 

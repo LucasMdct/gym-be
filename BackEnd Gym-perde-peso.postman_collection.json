@@ -191,6 +191,47 @@
 				}
 			},
 			"response": []
+		},
+		{
+			"name": "Deletar avaliações",
+			"request": {
+				"auth": {
+					"type": "bearer",
+					"bearer": [
+						{
+							"key": "token",
+							"value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6MSwibmFtZSI6InRlc3RlIiwiZW1haWwiOiJ0ZXN0ZUBnbWFpbC5jb20iLCJjcmVhdGVkQXQiOiIyMDIzLTA3LTI1VDIxOjI3OjU2LjAwMFoiLCJ1cGRhdGVkQXQiOiIyMDIzLTA3LTI1VDIxOjI3OjU2LjAwMFoiLCJpYXQiOjE2OTAzNjY5MzMsImV4cCI6MTY5MDk3MTczM30.jHyM6JtsMvtevtREl_psBsSQd_vrU6As5UPj-s0oAkY",
+							"type": "string"
+						}
+					]
+				},
+				"method": "DELETE",
+				"header": [],
+				"url": {
+					"raw": "http://localhost:3000/assessments/18",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "3000",
+					"path": [
+						"assessments",
+						"18"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Deletar Alunos e avaliações vinculadas",
+			"request": {
+				"method": "DELETE",
+				"header": [],
+				"url": {
+					"raw": ""
+				}
+			},
+			"response": []
 		}
 	],
 	"variable": [

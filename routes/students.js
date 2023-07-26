@@ -93,4 +93,37 @@ router.patch('/:studentId',middlewareAuthentication,studentsUpdateValidator,
     },
 );
 
+/**
+ * Rota de exclusão de tarefas
+ * DELETE /tarefas/1
+ */
+router.delete(
+  '/:studentId',
+  middlewareAuthentication,
+  async (req, res) => {
+    try {
+      const { userLogged, params } = req;
+      const { studentId } = params;
+
+      const result = await Students.destroy({
+        where: {
+          id: studentId,
+          id_teachers: userLogged.id,
+        },
+      });
+
+      if (!result) {
+        res.status(404).send('Estudante Não foi encontrada');
+        return;
+      }
+
+      res.status(204).send();
+
+    } catch (error) {
+      console.warn(error);
+      res.status(500).send();
+    }
+  },
+);
+
 module.exports = router;

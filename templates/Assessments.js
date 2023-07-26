@@ -31,7 +31,7 @@ Assessments.belongsTo(Students, {
   as: 'students',
   targetKey: 'id',
   foreignKey: 'id_students',
-  onDelete: 'NO ACTION',
+  onDelete: 'CASCADE',
   onUpdate: 'NO ACTION',
 });
 
