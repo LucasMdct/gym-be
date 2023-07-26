@@ -163,7 +163,7 @@
 			"response": []
 		},
 		{
-			"name": "Atualizar e Cadastrar avaliação",
+			"name": "Cadastrar avaliação",
 			"request": {
 				"auth": {
 					"type": "bearer",
@@ -175,10 +175,10 @@
 						}
 					]
 				},
-				"method": "PATCH",
+				"method": "POST",
 				"header": [],
 				"url": {
-					"raw": "http://localhost:3000/assessments/17",
+					"raw": "http://localhost:3000/assessments/19",
 					"protocol": "http",
 					"host": [
 						"localhost"
@@ -186,7 +186,7 @@
 					"port": "3000",
 					"path": [
 						"assessments",
-						"17"
+						"19"
 					]
 				}
 			},
