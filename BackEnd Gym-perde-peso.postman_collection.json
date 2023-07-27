@@ -24,7 +24,7 @@
 				"header": [],
 				"body": {
 					"mode": "raw",
-					"raw": "{\r\n    \"name\": \"teste\",\r\n    \"email\": \"teste@gmail.com\",\r\n    \"password\": \"1234s5678\"\r\n}",
+					"raw": "{\r\n    // \"name\": \"teste\",\r\n    // \"email\": \"teste@gmail.com\",    \r\n    \"name\": \"teste1\",\r\n    \"email\": \"teste4@gmail.com\",\r\n    \"password\": \"1234s5678\"\r\n}",
 					"options": {
 						"raw": {
 							"language": "json"
@@ -32,12 +32,13 @@
 					}
 				},
 				"url": {
-					"raw": "http://localhost:3000/teachers/",
-					"protocol": "http",
+					"raw": "https://gym.medeirosdev.cloud/teachers/",
+					"protocol": "https",
 					"host": [
-						"localhost"
+						"gym",
+						"medeirosdev",
+						"cloud"
 					],
-					"port": "3000",
 					"path": [
 						"teachers",
 						""
@@ -63,7 +64,7 @@
 				"header": [],
 				"body": {
 					"mode": "raw",
-					"raw": "{\r\n    \"email\": \"teste@gmail.com\",\r\n    \"password\": \"1234s5678\"\r\n}",
+					"raw": "{\r\n    \"email\": \"teste7@gmail.com\",\r\n    \"password\": \"1234s5678\"\r\n}",
 					"options": {
 						"raw": {
 							"language": "json"
@@ -71,12 +72,13 @@
 					}
 				},
 				"url": {
-					"raw": "http://localhost:3000/teachers/login",
-					"protocol": "http",
+					"raw": "https://gym.medeirosdev.cloud/teachers/login",
+					"protocol": "https",
 					"host": [
-						"localhost"
+						"gym",
+						"medeirosdev",
+						"cloud"
 					],
-					"port": "3000",
 					"path": [
 						"teachers",
 						"login"
@@ -93,7 +95,7 @@
 					"bearer": [
 						{
 							"key": "token",
-							"value": "",
+							"value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6NCwibmFtZSI6InRlc3RlMSIsImVtYWlsIjoidGVzdGUyQGdtYWlsLmNvbSIsImNyZWF0ZWRBdCI6IjIwMjMtMDctMjZUMjA6MTI6MTIuMDAwWiIsInVwZGF0ZWRBdCI6IjIwMjMtMDctMjZUMjA6MTI6MTIuMDAwWiIsImlhdCI6MTY5MDQwMjM0MywiZXhwIjoxNjkxMDA3MTQzfQ.WPZmA-gTJPYgYW0NLPcut93IZAd2Q0FT-qmhItT8I6c",
 							"type": "string"
 						}
 					]
@@ -110,14 +112,76 @@
 					}
 				},
 				"url": {
-					"raw": "http://localhost:3000/students",
+					"raw": "https://gym.medeirosdev.cloud/students/",
+					"protocol": "https",
+					"host": [
+						"gym",
+						"medeirosdev",
+						"cloud"
+					],
+					"path": [
+						"students",
+						""
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Consultar Alunos",
+			"request": {
+				"auth": {
+					"type": "bearer",
+					"bearer": [
+						{
+							"key": "token",
+							"value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6NiwibmFtZSI6InRlc3RlMSIsImVtYWlsIjoidGVzdGU3QGdtYWlsLmNvbSIsImNyZWF0ZWRBdCI6IjIwMjMtMDctMjdUMDk6NTE6NDAuMDAwWiIsInVwZGF0ZWRBdCI6IjIwMjMtMDctMjdUMDk6NTE6NDAuMDAwWiIsImlhdCI6MTY5MDQ1MTU2NiwiZXhwIjoxNjkxMDU2MzY2fQ.Zw68oaejvbKAyaPhCCtQ4hn0yyoKRK8zGF4IkiwDS5Y",
+							"type": "string"
+						}
+					]
+				},
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "http://localhost:3000/students/",
 					"protocol": "http",
 					"host": [
 						"localhost"
 					],
 					"port": "3000",
 					"path": [
-						"students"
+						"students",
+						""
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Obter Aluno por ID",
+			"request": {
+				"auth": {
+					"type": "bearer",
+					"bearer": [
+						{
+							"key": "token",
+							"value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6NiwibmFtZSI6InRlc3RlMSIsImVtYWlsIjoidGVzdGU3QGdtYWlsLmNvbSIsImNyZWF0ZWRBdCI6IjIwMjMtMDctMjdUMDk6NTE6NDAuMDAwWiIsInVwZGF0ZWRBdCI6IjIwMjMtMDctMjdUMDk6NTE6NDAuMDAwWiIsImlhdCI6MTY5MDQ1MTU2NiwiZXhwIjoxNjkxMDU2MzY2fQ.Zw68oaejvbKAyaPhCCtQ4hn0yyoKRK8zGF4IkiwDS5Y",
+							"type": "string"
+						}
+					]
+				},
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "http://localhost:3000/tarefas/1",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "3000",
+					"path": [
+						"tarefas",
+						"1"
 					]
 				}
 			},
@@ -131,7 +195,7 @@
 					"bearer": [
 						{
 							"key": "token",
-							"value": "",
+							"value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6NCwibmFtZSI6InRlc3RlMSIsImVtYWlsIjoidGVzdGUyQGdtYWlsLmNvbSIsImNyZWF0ZWRBdCI6IjIwMjMtMDctMjZUMjA6MTI6MTIuMDAwWiIsInVwZGF0ZWRBdCI6IjIwMjMtMDctMjZUMjA6MTI6MTIuMDAwWiIsImlhdCI6MTY5MDQwMjM0MywiZXhwIjoxNjkxMDA3MTQzfQ.WPZmA-gTJPYgYW0NLPcut93IZAd2Q0FT-qmhItT8I6c",
 							"type": "string"
 						}
 					]
@@ -140,7 +204,7 @@
 				"header": [],
 				"body": {
 					"mode": "raw",
-					"raw": "{\r\n    \"name\": \"Lucas\",\r\n    \"gender\": \"M\",\r\n    \"age\": 23,\r\n    \"height\": 1.65,\r\n    \"weight\": 90.6\r\n}\r\n",
+					"raw": "{\r\n    \"name\": \"Lucas\",\r\n    \"gender\": \"M\",\r\n    \"age\": 23,\r\n    \"height\": 1.65,\r\n    \"weight\": 100.0\r\n}\r\n",
 					"options": {
 						"raw": {
 							"language": "json"
@@ -148,15 +212,16 @@
 					}
 				},
 				"url": {
-					"raw": "http://localhost:3000/students/17",
-					"protocol": "http",
+					"raw": "https://gym.medeirosdev.cloud/students/34",
+					"protocol": "https",
 					"host": [
-						"localhost"
+						"gym",
+						"medeirosdev",
+						"cloud"
 					],
-					"port": "3000",
 					"path": [
 						"students",
-						"17"
+						"34"
 					]
 				}
 			},
@@ -170,7 +235,7 @@
 					"bearer": [
 						{
 							"key": "token",
-							"value": "",
+							"value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6NCwibmFtZSI6InRlc3RlMSIsImVtYWlsIjoidGVzdGUyQGdtYWlsLmNvbSIsImNyZWF0ZWRBdCI6IjIwMjMtMDctMjZUMjA6MTI6MTIuMDAwWiIsInVwZGF0ZWRBdCI6IjIwMjMtMDctMjZUMjA6MTI6MTIuMDAwWiIsImlhdCI6MTY5MDQwMjM0MywiZXhwIjoxNjkxMDA3MTQzfQ.WPZmA-gTJPYgYW0NLPcut93IZAd2Q0FT-qmhItT8I6c",
 							"type": "string"
 						}
 					]
@@ -178,15 +243,16 @@
 				"method": "POST",
 				"header": [],
 				"url": {
-					"raw": "http://localhost:3000/assessments/19",
-					"protocol": "http",
+					"raw": "https://gym.medeirosdev.cloud/assessments/31",
+					"protocol": "https",
 					"host": [
-						"localhost"
+						"gym",
+						"medeirosdev",
+						"cloud"
 					],
-					"port": "3000",
 					"path": [
 						"assessments",
-						"19"
+						"31"
 					]
 				}
 			},
@@ -200,7 +266,7 @@
 					"bearer": [
 						{
 							"key": "token",
-							"value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6MSwibmFtZSI6InRlc3RlIiwiZW1haWwiOiJ0ZXN0ZUBnbWFpbC5jb20iLCJjcmVhdGVkQXQiOiIyMDIzLTA3LTI1VDIxOjI3OjU2LjAwMFoiLCJ1cGRhdGVkQXQiOiIyMDIzLTA3LTI1VDIxOjI3OjU2LjAwMFoiLCJpYXQiOjE2OTAzNjY5MzMsImV4cCI6MTY5MDk3MTczM30.jHyM6JtsMvtevtREl_psBsSQd_vrU6As5UPj-s0oAkY",
+							"value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6NCwibmFtZSI6InRlc3RlMSIsImVtYWlsIjoidGVzdGUyQGdtYWlsLmNvbSIsImNyZWF0ZWRBdCI6IjIwMjMtMDctMjZUMjA6MTI6MTIuMDAwWiIsInVwZGF0ZWRBdCI6IjIwMjMtMDctMjZUMjA6MTI6MTIuMDAwWiIsImlhdCI6MTY5MDQwMjM0MywiZXhwIjoxNjkxMDA3MTQzfQ.WPZmA-gTJPYgYW0NLPcut93IZAd2Q0FT-qmhItT8I6c",
 							"type": "string"
 						}
 					]
@@ -208,15 +274,16 @@
 				"method": "DELETE",
 				"header": [],
 				"url": {
-					"raw": "http://localhost:3000/assessments/18",
-					"protocol": "http",
+					"raw": "https://gym.medeirosdev.cloud/assessments/33",
+					"protocol": "https",
 					"host": [
-						"localhost"
+						"gym",
+						"medeirosdev",
+						"cloud"
 					],
-					"port": "3000",
 					"path": [
 						"assessments",
-						"18"
+						"33"
 					]
 				}
 			},
@@ -225,10 +292,90 @@
 		{
 			"name": "Deletar Alunos e avaliações vinculadas",
 			"request": {
+				"auth": {
+					"type": "bearer",
+					"bearer": [
+						{
+							"key": "token",
+							"value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6NCwibmFtZSI6InRlc3RlMSIsImVtYWlsIjoidGVzdGUyQGdtYWlsLmNvbSIsImNyZWF0ZWRBdCI6IjIwMjMtMDctMjZUMjA6MTI6MTIuMDAwWiIsInVwZGF0ZWRBdCI6IjIwMjMtMDctMjZUMjA6MTI6MTIuMDAwWiIsImlhdCI6MTY5MDQwMjM0MywiZXhwIjoxNjkxMDA3MTQzfQ.WPZmA-gTJPYgYW0NLPcut93IZAd2Q0FT-qmhItT8I6c",
+							"type": "string"
+						}
+					]
+				},
 				"method": "DELETE",
 				"header": [],
 				"url": {
-					"raw": ""
+					"raw": "https://gym.medeirosdev.cloud/students/27",
+					"protocol": "https",
+					"host": [
+						"gym",
+						"medeirosdev",
+						"cloud"
+					],
+					"path": [
+						"students",
+						"27"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Consultar Avaliações",
+			"request": {
+				"auth": {
+					"type": "bearer",
+					"bearer": [
+						{
+							"key": "token",
+							"value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6NiwibmFtZSI6InRlc3RlMSIsImVtYWlsIjoidGVzdGU3QGdtYWlsLmNvbSIsImNyZWF0ZWRBdCI6IjIwMjMtMDctMjdUMDk6NTE6NDAuMDAwWiIsInVwZGF0ZWRBdCI6IjIwMjMtMDctMjdUMDk6NTE6NDAuMDAwWiIsImlhdCI6MTY5MDQ1MTU2NiwiZXhwIjoxNjkxMDU2MzY2fQ.Zw68oaejvbKAyaPhCCtQ4hn0yyoKRK8zGF4IkiwDS5Y",
+							"type": "string"
+						}
+					]
+				},
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "http://localhost:3000/assessments/",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "3000",
+					"path": [
+						"assessments",
+						""
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Obter Avaliação por ID",
+			"request": {
+				"auth": {
+					"type": "bearer",
+					"bearer": [
+						{
+							"key": "token",
+							"value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6NiwibmFtZSI6InRlc3RlMSIsImVtYWlsIjoidGVzdGU3QGdtYWlsLmNvbSIsImNyZWF0ZWRBdCI6IjIwMjMtMDctMjdUMDk6NTE6NDAuMDAwWiIsInVwZGF0ZWRBdCI6IjIwMjMtMDctMjdUMDk6NTE6NDAuMDAwWiIsImlhdCI6MTY5MDQ1NDE2NCwiZXhwIjoxNjkxMDU4OTY0fQ.4rWuw_PAUZUPIlV5AcFMT7QWza_2I_L89OynBtG_jlI",
+							"type": "string"
+						}
+					]
+				},
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "http://localhost:3000/students/40",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "3000",
+					"path": [
+						"students",
+						"40"
+					]
 				}
 			},
 			"response": []

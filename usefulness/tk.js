@@ -7,7 +7,7 @@ const gTokenUser = (teachers) => jwt.sign(teachers, JWT_TOKEN, {
 });
 
 
-const holdoutTokenUsers = (token) => jwt.verify(token, JWT_TOKEN);
+const holdoutTokenUsers = (tkn) => jwt.verify(tkn, JWT_TOKEN);
 
 module.exports = {
   gTokenUser,

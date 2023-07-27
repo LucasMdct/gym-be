@@ -34,9 +34,7 @@ router.post('/:studentId', middlewareAuthentication, async (req, res) => {
   try {
     const { userLogged, params, body } = req;
     const { studentId } = params;
-    // const { name, gender, age, height, weight } = body;
-  const { name , height, weight } = body;
-    // Busque o estudante pelo ID
+    const { name, height, weight } = body;
     const student = await Students.findOne({
       where: {
         id: studentId,
@@ -48,7 +46,7 @@ router.post('/:studentId', middlewareAuthentication, async (req, res) => {
       res.status(404).send('Estudante não encontrado');
       return;
     }
-  
+
     const imc = student.weight / (student.height * 2);
 
     const assessment_value = await Assessments.create({
@@ -72,10 +70,58 @@ router.post('/:studentId', middlewareAuthentication, async (req, res) => {
 });
 
 
-/**
- * Rota de exclusão de tarefas
- * DELETE /tarefas/1
- */
+router.get(
+  '/',
+  middlewareAuthentication,
+  async (req, res) => {
+    try {
+      const { userLogged } = req;
+
+      const result = await Assessments.findAll({
+        where: {
+          id_teachers: userLogged.id,
+        },
+      });
+
+      res.status(200).json(result);
+    } catch (error) {
+      console.warn(error);
+      res.status(500).send();
+    }
+  },
+);
+
+
+router.get(
+  '/:assessmentId',
+  middlewareAuthentication,
+  async (req, res) => {
+    try {
+      const { userLogged, params } = req;
+
+      const { assessmentId } = params;
+
+      const result = await Assessments.findOne({
+        where: {
+          id: assessmentId,
+          id_teachers: userLogged.id,
+        },
+      });
+
+      if (!result) {
+        res.status(404).send('Avaliação não encontrada');
+        return;
+      }
+
+      res.status(200).json(result);
+    } catch (error) {
+      console.warn(error);
+      res.status(500).send();
+    }
+  },
+);
+
+
 router.delete(
   '/:assessmentId',
   middlewareAuthentication,

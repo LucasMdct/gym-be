@@ -38,6 +38,63 @@ router.post('/', middlewareAuthentication, validateStudentRegistration, async (r
     }
 },
 );
+/**
+ * Consulta de tarefas do usuário logado
+ */
+router.get(
+    '/',
+    middlewareAuthentication,
+    async (req, res) => {
+      try {
+        const { userLogged } = req;
+  
+        const result = await Students.findAll({
+          where: {
+            id_teachers: userLogged.id,
+          },
+        });
+  
+        res.status(200).json(result);
+      } catch (error) {
+        console.warn(error);
+        res.status(500).send();
+      }
+    },
+  );
+  
+/*
+/**
+ * Retorna tarefa por ID do usuário logado
+ */
+router.get(
+    '/:studentId',
+    middlewareAuthentication,
+    async (req, res) => {
+      try {
+        const { userLogged, params } = req;
+  
+        const { studentId } = params;
+  
+        const result = await Students.findOne({
+          where: {
+            id: studentId,
+            id_teachers: userLogged.id,
+          },
+        });
+  
+        if (!result) {
+          res.status(404).send('Estudante não encontrada');
+          return;
+        }
+  
+        res.status(200).json(result);
+      } catch (error) {
+        console.warn(error);
+        res.status(500).send();
+      }
+    },
+  );
+
 
 
 router.patch('/:studentId',middlewareAuthentication,studentsUpdateValidator,

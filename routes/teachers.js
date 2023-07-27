@@ -8,6 +8,7 @@ const { gTokenUser } = require('../usefulness/tk');
 const { check_Validation_Result } = require('../holdout');
 const { v_Login, v_Registration } = require('../holdout/teachers');
 
+
 const router = express.Router();
 
 function duplicate_email (error) {
