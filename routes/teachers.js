@@ -2,7 +2,7 @@
 const express = require('express');
 const { ValidationError } = require('sequelize');
 
-const Teachers = require('../templates/teachers');
+const Teachers = require('../templates/Teachers');
 const { cPassword } = require('../usefulness/password');
 const { gTokenUser } = require('../usefulness/tk');
 const { check_Validation_Result } = require('../holdout');

@@ -1,7 +1,7 @@
 
 const { DataTypes } = require('sequelize');
 const sequelize = require('../persistence/db');
-const Teachers = require('./teachers')
+const Teachers = require('./Teachers')
 
 const Students = sequelize.define(
     'students',

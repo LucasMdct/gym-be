@@ -1,4 +1,4 @@
-const Teachers = require('../templates/teachers'); 
+const Teachers = require('../templates/Teachers'); 
 const Students = require('../templates/Students');
 
 const { holdoutTokenUsers } = require('../usefulness/tk');
