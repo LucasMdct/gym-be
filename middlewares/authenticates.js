@@ -1,7 +1,7 @@
 const Teachers = require('../templates/Teachers'); 
 const Students = require('../templates/Students');
 
-const { holdoutTokenUsers } = require('../usefulness/tk');
+const { holdoutTokenUsers } = require('../usefulness/tkn');
 
  
 const obtainsTokenAuthentication = (authorization) => {
@@ -12,15 +12,15 @@ const obtainsTokenAuthentication = (authorization) => {
 };
 
 const middlewareAuthentication = async (request, response, next) => {
-  const token = obtainsTokenAuthentication(request.headers.authorization);
+  const tkn = obtainsTokenAuthentication(request.headers.authorization);
 
-  if (!token) {
+  if (!tkn) {
     response.status(401).send('Token não informado.');
     return;
   }
 
   try {
-    const payload = holdoutTokenUsers(token);
+    const payload = holdoutTokenUsers(tkn);
 
     const teachersId = payload.id;
     

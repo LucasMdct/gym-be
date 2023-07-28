@@ -4,7 +4,7 @@ const cookieParser = require('cookie-parser');
 const logger = require('morgan');
 const cors = require('cors');
 
-const homeRouter = require('./routes/home');
+const indexRouter = require('./routes');
 const teachersRouter = require('./routes/teachers');
 const assessmentRouter = require('./routes/assess')
 const studentsRouter = require('./routes/students');
@@ -26,7 +26,7 @@ app.use(express.json());
 app.use(express.urlencoded({ extended: false }));
 app.use(cookieParser());
 
-app.use('/', homeRouter);
+app.use('/', indexRouter);
  app.use('/teachers', teachersRouter);
  app.use('/students', studentsRouter);
  app.use('/assessments', assessmentRouter);

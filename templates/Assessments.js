@@ -24,6 +24,10 @@ const Assessments = sequelize.define(
       type: DataTypes.DECIMAL(5, 2),
       allowNull: false,
     },
+    rank_imc: {
+      type: DataTypes.STRING(100),
+      allowNull: false,
+    },
   },
 );
 

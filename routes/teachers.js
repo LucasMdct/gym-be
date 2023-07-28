@@ -4,7 +4,7 @@ const { ValidationError } = require('sequelize');
 
 const Teachers = require('../templates/Teachers');
 const { cPassword } = require('../usefulness/password');
-const { gTokenUser } = require('../usefulness/tk');
+const { gTokenUser } = require('../usefulness/tkn');
 const { check_Validation_Result } = require('../holdout');
 const { v_Login, v_Registration } = require('../holdout/teachers');
 
@@ -40,8 +40,7 @@ router.post('/',v_Registration,async (req, res) => {
 
       const teacher = await Teachers.findByPk(teachers.get('id'));
       
-      delete res.status(201).json(teacher);
-
+       res.status(201).json(teacher);
     } catch (error) {
       console.warn(error);
       if (duplicate_email(error)) {

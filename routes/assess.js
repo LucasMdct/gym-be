@@ -8,23 +8,6 @@ const Students = require('../templates/Students');
 
 const router = express.Router();
 
-function rankImc(imc) {
-  if (imc < 17) {
-    return 'Muito abaixo do peso';
-  } else if (imc <= 18.49) {
-    return 'Abaixo do peso';
-  } else if (imc >= 18.5 && imc < 24.9) {
-    return 'Peso normal';
-  } else if (imc >= 25 && imc < 29.9) {
-    return 'Acima do Peso';
-  } else if (imc >= 30 && imc < 34.9) {
-    return 'Obesidade I';
-  } else if (imc >= 35 && imc < 39.9) {
-    return 'Obesidade II (severa)';
-  } else {
-    return 'Obesidade III (mórbida)';
-  }
-};
 
 router.post('/:studentId', middlewareAuthentication, async (req, res) => {
   if (check_Validation_Result(req, res)) {
@@ -35,6 +18,7 @@ router.post('/:studentId', middlewareAuthentication, async (req, res) => {
     const { userLogged, params, body } = req;
     const { studentId } = params;
     const { name, height, weight } = body;
+
     const student = await Students.findOne({
       where: {
         id: studentId,
@@ -55,13 +39,13 @@ router.post('/:studentId', middlewareAuthentication, async (req, res) => {
       imc,
     });
 
-    const resData = {
+    const Data = {
       imc,
-      classification: rankImc(imc),
+      classification: DisplayImcRank(imc),
     };
 
 
-    res.status(200).json(resData);
+    res.status(200).json(Data);
 
   } catch (error) {
     console.warn(error);
