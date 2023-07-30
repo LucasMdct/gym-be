@@ -12,12 +12,7 @@ const studentsRouter = require('./routes/students');
 const app = express();
 
 app.use(cors({
-  origin: [
-    // Libera o servidor na núvem
-    /.*.medeirosdev.cloud$/,
-    // Libera acesso local
-  /^(http:\/\/(localhost|127\.0\.0\.1|168\.75\.79\.92)(:\d+){0,1})$/,
-  ],
+  origin: 'http://168.75.79.92:8080',
   maxAge: 3600,
 }));
 
