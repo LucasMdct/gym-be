@@ -13,8 +13,10 @@ const app = express();
 
 app.use(cors({
   origin: 'http://168.75.79.92:8080',
-  maxAge: 3600,
+  methods: ['GET', 'POST', 'PATCH'], // Se necessário, especifique os métodos permitidos
+  allowedHeaders: ['Content-Type', 'Authorization'], // Se necessário, especifique os cabeçalhos permitidos
 }));
+
 
 app.use(logger('dev'));
 app.use(express.json());
