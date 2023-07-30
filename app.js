@@ -17,6 +17,8 @@ app.use(cors({
     /.*.medeirosdev.cloud$/,
     // Libera acesso local
     /http:\/\/(localhost|127.0.0.1)(:\d+){0,1}$/,
+      // Libera acesso ao IP específico
+    'http://168.75.79.92:8080',
   ],
   maxAge: 3600,
 }));
