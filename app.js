@@ -16,7 +16,7 @@ app.use(cors({
     // Libera o servidor na núvem
     /.*.medeirosdev.cloud$/,
     // Libera acesso local
-  /^(http:\/\/(localhost|127\.0\.0\.1|168\.75\.79\.92)(:\d+){0,1})$/
+  /^(http:\/\/(localhost|127\.0\.0\.1|168\.75\.79\.92)(:\d+){0,1})$/,
   ],
   maxAge: 3600,
 }));
