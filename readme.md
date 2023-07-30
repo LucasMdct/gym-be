@@ -62,12 +62,6 @@ O sistema desenvolvido para a Academia Perde-Peso permitirá um melhor acompanha
 
 ## Autores
 
-
-Joao Guilherme
- - linkedin.com/in/joao-tsuchiya
- - github.com/jgtsuchiya
- - joaog.tsuchiya@gmail.com
-
 Lucas Medeiros Costa
  - linkedin.com/in/medeirosdev/
  - github.com/LucasMdct/
