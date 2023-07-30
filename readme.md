@@ -67,4 +67,3 @@ Lucas Medeiros Costa
  - github.com/LucasMdct/
  - lucasmedeiroscosta07@gmail.com
 
-Data de Conclusão do Projeto 27/07/2023
